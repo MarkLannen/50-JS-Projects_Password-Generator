@@ -15,17 +15,12 @@ const randomFunc = {
 };
 
 clipboardEl.addEventListener('click', () => {
-  const textArea = document.createElement('textarea');
   const password = resultEl.innerText;
   if (!password) {
     return;
   }
-  textArea.value = password;
-  document.body.appendChild(textArea);
-  textArea.select();
-  document.execCommand('copy');
-  textArea.remove();
-  alert('Password has been copied to clipboard');
+  navigator.clipboard.writeText(password);
+  alert('Password copied to clipboard!');
 });
 
 generateEl.addEventListener('click', () => {
@@ -52,7 +47,7 @@ function generatePassword(lower, upper, number, symbol, length) {
   );
 
   if (typesCount === 0) {
-    return 'Please select at least on checkbox';
+    return '';
   }
 
   for (let i = 0; i < length; i += typesCount) {
@@ -70,9 +65,11 @@ function generatePassword(lower, upper, number, symbol, length) {
 function getRandomLower() {
   return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
 }
+
 function getRandomUpper() {
   return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
 }
+
 function getRandomNumber() {
   return String.fromCharCode(Math.floor(Math.random() * 10) + 48);
 }
